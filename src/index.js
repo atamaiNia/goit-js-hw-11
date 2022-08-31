@@ -89,7 +89,6 @@ async function onClickFormSubmit(e) {
     refs.endGalleryText.classList.add('is-hidden');
   } else {
     refs.loadMoreBtn.classList.add('is-hidden');
-    refs.endGalleryText.classList.add('show');
   }
 }
 
