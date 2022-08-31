@@ -87,7 +87,7 @@ async function onClickFormSubmit(e) {
     refs.loadMoreBtn.classList.add('show');
     refs.endGalleryText.classList.add('is-hidden');
   } else {
-    refs.loadMoreBtn.style.display = 'none';
+    refs.loadMoreBtn.classList.add('is-hidden');
     refs.endGalleryText.classList.add('show');
   }
 }
@@ -100,7 +100,7 @@ function onClickLoadMore() {
   lightbox.refresh();
 
   if (currentHits / value <= currentPage) {
-    refs.loadMoreBtn.classList.add('is-hidden');
+    refs.loadMoreBtn.style.display = 'none';
     refs.endGalleryText.classList.add('show');
   }
 }
