@@ -31,7 +31,21 @@ async function fetchData() {
         safesearch: true,
       },
     })
-    .then(response => { response.data }
+    .then(({ data }) => {
+      if (data.totalHits === 0 || query === '') {
+        refs.gallery.innerHTML = '';
+        refs.loadMoreBtn.style.display = 'none';
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      } else {
+        items = data.hits;
+        currentHits = data.totalHits;
+        Notify.success(`Hooray! We found ${currentHits} images.`);
+        renderGallery();
+        slowlyScroll(2);
+        lightbox.refresh();
+      }
     })
 
     .catch(error => console.log(error.message));
