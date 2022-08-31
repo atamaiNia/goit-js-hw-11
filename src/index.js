@@ -37,6 +37,7 @@ async function fetchData() {
       if (data.totalHits === 0 || query === '') {
         refs.gallery.innerHTML = '';
         refs.loadMoreBtn.classList.add('is-hidden');
+        refs.endGalleryText.style.display = 'none';
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
