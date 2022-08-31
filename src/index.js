@@ -8,12 +8,14 @@ const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
+  endGalleryText: document.querySelector('.end-gallery'),
 };
 
 let items = [];
 let query = '';
 let currentPage = 1;
 let currentHits = null;
+let value = 0;
 
 refs.form.addEventListener('submit', onClickFormSubmit);
 
@@ -41,6 +43,7 @@ async function fetchData() {
       } else {
         items = data.hits;
         currentHits = data.totalHits;
+        value = data.hits.length;
         Notify.success(`Hooray! We found ${currentHits} images.`);
         renderGallery();
         slowlyScroll(2);
@@ -71,15 +74,22 @@ function renderGallery() {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 
-function onClickFormSubmit(e) {
+async function onClickFormSubmit(e) {
   e.preventDefault();
   currentPage = 1;
   query = e.target.elements.searchQuery.value;
   refs.gallery.innerHTML = '';
   console.log(query);
-  fetchData();
-  refs.loadMoreBtn.classList.remove('is-hidden');
-  refs.loadMoreBtn.style.display = 'flex';
+  await fetchData();
+  console.log(currentHits);
+  if (currentHits > 40) {
+    refs.loadMoreBtn.classList.remove('is-hidden');
+    refs.loadMoreBtn.classList.add('show');
+    refs.endGalleryText.classList.add('is-hidden');
+  } else {
+    refs.loadMoreBtn.style.display = 'none';
+    refs.endGalleryText.classList.add('show');
+  }
 }
 
 refs.loadMoreBtn.addEventListener('click', onClickLoadMore);
@@ -89,9 +99,9 @@ function onClickLoadMore() {
   fetchData();
   lightbox.refresh();
 
-  if (currentHits === data.totalHits) {
+  if (currentHits / value <= currentPage) {
     refs.loadMoreBtn.style.display = 'none';
-    Notify.info("We're sorry, but you've reached the end of search results.");
+    refs.endGalleryText.classList.add('show');
   }
 }
 
