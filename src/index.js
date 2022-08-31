@@ -31,22 +31,7 @@ async function fetchData() {
         safesearch: true,
       },
     })
-    .then(({ data }) => {
-      if (data.totalHits === 0 || query === '') {
-        refs.gallery.innerHTML = '';
-        refs.loadMoreBtn.style.display = 'none';
-        Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      } else {
-        items = data.hits;
-        currentHits = data.totalHits;
-        currentPage = 1;
-        Notify.success(`Hooray! We found ${currentHits} images.`);
-        renderGallery();
-        slowlyScroll(2);
-        lightbox.refresh();
-      }
+    .then(response => { response.data }
     })
 
     .catch(error => console.log(error.message));
@@ -74,6 +59,7 @@ function renderGallery() {
 
 function onClickFormSubmit(e) {
   e.preventDefault();
+  currentPage = 1;
   query = e.target.elements.searchQuery.value;
   refs.gallery.innerHTML = '';
   console.log(query);

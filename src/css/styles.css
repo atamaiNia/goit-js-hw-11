@@ -2,6 +2,15 @@
   display: none;
 }
 
+.show {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .gallery {
   display: flex;
   flex-direction: row;
@@ -106,11 +115,6 @@ placeholder {
 }
 
 .load-more {
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
   width: 150px;
   height: 40px;
   cursor: pointer;
@@ -128,4 +132,10 @@ placeholder {
 .load-more:focus {
   color: rgb(252, 139, 58);
   background-color: black;
+}
+
+.end-gallery {
+  margin-top: 20px;
+  font-size: 36px;
+  color: rgba(250, 107, 5, 0.7);
 }
