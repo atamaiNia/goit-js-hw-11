@@ -36,7 +36,7 @@ async function fetchData() {
     .then(({ data }) => {
       if (data.totalHits === 0 || query === '') {
         refs.gallery.innerHTML = '';
-        refs.loadMoreBtn.style.display = 'none';
+        refs.loadMoreBtn.classList.add('is-hidden');
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
@@ -100,7 +100,7 @@ function onClickLoadMore() {
   lightbox.refresh();
 
   if (currentHits / value <= currentPage) {
-    refs.loadMoreBtn.style.display = 'none';
+    refs.loadMoreBtn.classList.add('is-hidden');
     refs.endGalleryText.classList.add('show');
   }
 }
