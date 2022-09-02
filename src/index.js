@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
-import Simplelightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import { lightbox } from './js/lightbox';
 import './css/styles.css';
+import slowlyScroll from './js/slowly-scroll';
 
 const refs = {
   form: document.querySelector('.search-form'),
@@ -88,7 +88,7 @@ async function onClickFormSubmit(e) {
     refs.loadMoreBtn.classList.add('show');
     refs.endGalleryText.classList.add('is-hidden');
   } else {
-    refs.loadMoreBtn.classList.add('is-hidden');
+    refs.loadMoreBtn.display = 'none';
   }
 }
 
@@ -98,26 +98,12 @@ function onClickLoadMore() {
   currentPage += 1;
   fetchData();
   lightbox.refresh();
+  console.log('currentHits', currentHits);
+  console.log('value', value);
+  console.log('currentPage', currentPage);
 
-  if (currentHits / value <= currentPage) {
+  if (currentHits / value < currentPage) {
     refs.loadMoreBtn.style.display = 'none';
     refs.endGalleryText.classList.add('show');
   }
-}
-
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-});
-
-function slowlyScroll() {
-  const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: 'smooth',
-  });
 }
