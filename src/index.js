@@ -3,7 +3,6 @@ import renderGallery from './js/render';
 import { Notify } from 'notiflix';
 import { lightbox } from './js/lightbox';
 import slowlyScroll from './js/slowly-scroll';
-import './css/styles.css';
 
 const formRef = document.querySelector('.search-form');
 const galleryRef = document.querySelector('.gallery');
